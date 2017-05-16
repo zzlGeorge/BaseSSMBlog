@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <properties resource="mybatis-generator/generatorConfig.properties"/>
+
+    <classPathEntry location="${classPathEntry.location}"/>
+
+    <context id="context_server_sqlserver" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.CachePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbcConnection.driverClass}"
+                        connectionURL="${jdbcConnection.connectionURL}"
+                        userId="${jdbcConnection.userId}"
+                        password="${jdbcConnection.password}"/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${javaModelGenerator.targetPackage}"
+                            targetProject="${javaModelGenerator.targetProject}">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${sqlMapGenerator.targetPackage}"
+                         targetProject="${sqlMapGenerator.targetProject}">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="${javaClientGenerator.targetPackage}"
+                             targetProject="${javaClientGenerator.targetProject}"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="role" domainObjectName="Role"
+               enableCountByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" enableUpdateByExample="true">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"></generatedKey>
+        </table>-->
+
+        <table tableName="b_user" domainObjectName="User"/>
+    </context>
+</generatorConfiguration>
