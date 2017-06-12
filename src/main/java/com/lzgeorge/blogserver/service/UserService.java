@@ -18,4 +18,6 @@ public interface UserService {
     List<User> showAllMsg();
 
     User checkLogin(String username, String userpassword);
+
+    int register(User user);
 }

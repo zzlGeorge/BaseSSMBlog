@@ -47,4 +47,8 @@ public class UserServiceImpl implements UserService {
     public User checkLogin(String username, String userpassword) {
         return userDao.loginCk(username, userpassword);
     }
+
+    public int register(User user) {
+        return userDao.insertSelective(user);
+    }
 }

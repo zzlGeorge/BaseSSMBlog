@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -43,33 +45,43 @@ public class UserController {
         return userService.showAllMsg();
     }
 
-    //test自动装配
     @RequestMapping("/login")
-    public String hello(String username, String userpassword, HttpSession session) {
+    public String login(String username, String userpassword, HttpSession session) {
         User lgUser = null;
         lgUser = userService.checkLogin(username, userpassword);
         if (lgUser != null) {
             session.setAttribute("lgUser", lgUser);
-            return "success";
+            return "../index";
         } else return "error";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/LgStatus", produces = "application/json; charset=utf-8")
-    public String currentLgUser(HttpSession session) {
-        User lguser = (User)session.getAttribute("lgUser");
-        return lguser !=null?lguser.toString():"No user login!";
+    @RequestMapping(value = "/LgStatus")
+    public User currentLgUser(HttpSession session) {
+        User lguser = (User) session.getAttribute("lgUser");
+        return lguser;
     }
 
     @ResponseBody
     @RequestMapping("/lgOut")
-    public String logout(HttpSession session){
-        if(session.getAttribute("lgUser") != null) {
+    public Map<String, Object> logout(HttpSession session) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (session.getAttribute("lgUser") != null) {
             session.removeAttribute("lgUser");
-            return "Logout success!";
-        }else {
-            return "Logout failure！";
+            map.put("s", "success");
+
+        } else {
+            map.put("s", "failure");
         }
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("/register")
+    public String register(User user) {
+        user.setCreateTime(new Date());
+        int execute = userService.register(user);
+        return execute > 0 ? "success" : "failure";
     }
 
 	/*@RequestMapping(value = "/login", method = RequestMethod.GET)
